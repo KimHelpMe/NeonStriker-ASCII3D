@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64"><Configuration>Debug</Configuration><Platform>x64</Platform></ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64"><Configuration>Release</Configuration><Platform>x64</Platform></ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{c2f5a3d1-7b4e-4e2a-9f61-3d8b5e7a1c40}</ProjectGuid>
+    <RootNamespace>NeonStriker3D</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType><UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset><CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType><UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset><WholeProgramOptimization>true</WholeProgramOptimization><CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Configuration)\</IntDir>
+    <TargetName>NeonStriker3D</TargetName>
+  </PropertyGroup>
+  <!-- 외부 라이브러리 설치 없음: 오디오는 src/miniaudio.h (헤더 하나)만 사용 -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <!-- 한글 주석이 UTF-8로 저장되어 있으므로 /utf-8 필수 -->
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <!-- 빌드 후 효과음 폴더를 실행 파일 옆으로 복사 -->
+    <PostBuildEvent>
+      <Command>xcopy /E /I /Y /Q "$(ProjectDir)assets" "$(OutDir)assets"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile><PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions></ClCompile>
+    <Link><GenerateDebugInformation>true</GenerateDebugInformation></Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <FunctionLevelLinking>true</FunctionLevelLinking><IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link><EnableCOMDATFolding>true</EnableCOMDATFolding><OptimizeReferences>true</OptimizeReferences><GenerateDebugInformation>true</GenerateDebugInformation></Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Audio.cpp" />
+    <ClCompile Include="src\Background.cpp" />
+    <ClCompile Include="src\Boss.cpp" />
+    <ClCompile Include="src\Bullet.cpp" />
+    <ClCompile Include="src\Effects.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Item.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\Monster.cpp" />
+    <ClCompile Include="src\Platform.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Render3D.cpp" />
+    <ClCompile Include="src\Screen.cpp" />
+    <ClCompile Include="src\UI.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Audio.h" />
+    <ClInclude Include="src\Background.h" />
+    <ClInclude Include="src\Boss.h" />
+    <ClInclude Include="src\Bullet.h" />
+    <ClInclude Include="src\Config.h" />
+    <ClInclude Include="src\Effects.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\Item.h" />
+    <ClInclude Include="src\Math3D.h" />
+    <ClInclude Include="src\Mesh.h" />
+    <ClInclude Include="src\Monster.h" />
+    <ClInclude Include="src\OriginalArt.h" />
+    <ClInclude Include="src\Platform.h" />
+    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\Render3D.h" />
+    <ClInclude Include="src\Screen.h" />
+    <ClInclude Include="src\UI.h" />
+    <ClInclude Include="src\miniaudio.h" />
+  </ItemGroup>
+  <ItemGroup><ResourceCompile Include="resources\app.rc" /></ItemGroup>
+  <ItemGroup><Image Include="resources\icon.ico" /></ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
